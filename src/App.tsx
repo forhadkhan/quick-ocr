@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Upload, Clipboard, Copy, Check, Image as ImageIcon, Loader2, X, FileText, Settings, Plus, Cpu, Zap, Hash, Globe, Shield, History, Trash2, Clock, ZoomIn, ZoomOut, Command } from 'lucide-react';
+import { Upload, Clipboard, Copy, Check, Image as ImageIcon, Loader2, X, FileText, Settings, Plus, Cpu, Zap, Hash, Globe, Shield, History, Trash2, Clock, ZoomIn, ZoomOut, Command, Github } from 'lucide-react';
 import { createWorker } from 'tesseract.js';
 
 interface HistoryItem {
@@ -43,13 +43,13 @@ export default function App() {
   useEffect(() => {
     const root = window.document.documentElement;
     const isDarkSystem = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     if (theme === 'dark' || (theme === 'system' && isDarkSystem)) {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
     }
-    
+
     localStorage.setItem('ocr_theme', theme);
   }, [theme]);
 
@@ -158,12 +158,12 @@ export default function App() {
     setIsLoading(true);
     setProgress(0);
     setError(null);
-    
+
     try {
       const result = await runLocalOCR();
       const duration = Date.now() - startTime;
       const wordCount = result.text.split(/\s+/).filter(Boolean).length;
-      
+
       setExtractedText(result.text);
       setStats({
         confidence: result.confidence,
@@ -232,16 +232,16 @@ export default function App() {
           <h1 className="text-sm lg:text-lg font-bold tracking-tight hidden sm:block">quick<span className="text-indigo-600 dark:text-indigo-400">OCR</span></h1>
         </div>
         <div className="flex items-center gap-2 lg:gap-4 flex-nowrap shrink-0 ml-auto py-1">
-          <button 
-             onClick={() => fileInputRef.current?.click()}
-             className="px-2.5 py-1.5 flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors shrink-0"
-             title="Upload Image"
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="px-2.5 py-1.5 flex items-center gap-1.5 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors shrink-0"
+            title="Upload Image"
           >
-             <Plus size={14} className="stroke-[2.5]" />
-             <span className="text-[9px] font-bold uppercase tracking-wider hidden lg:block">Upload</span>
+            <Plus size={14} className="stroke-[2.5]" />
+            <span className="text-[9px] font-bold uppercase tracking-wider hidden lg:block">Upload</span>
           </button>
-          
-          <button 
+
+          <button
             onClick={() => setShowHistory(!showHistory)}
             className={`relative p-1.5 lg:px-2.5 lg:py-1.5 rounded-lg transition-colors shrink-0 flex items-center gap-1.5 ${showHistory ? 'text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-500/10' : 'text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700'}`}
             title="History"
@@ -255,7 +255,7 @@ export default function App() {
             )}
           </button>
 
-          <button 
+          <button
             onClick={() => setShowSettings(!showSettings)}
             className={`p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors shrink-0 ${showSettings ? 'text-indigo-600 dark:text-indigo-300 bg-slate-50 dark:bg-slate-800' : 'text-slate-500 dark:text-slate-400'}`}
           >
@@ -275,28 +275,28 @@ export default function App() {
             onClick={() => setIsLightboxOpen(false)}
           >
             <div className="absolute top-4 right-4 flex gap-2 z-[110]">
-              <button 
+              <button
                 onClick={(e) => { e.stopPropagation(); setZoomLevel(1); }}
                 className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors flex items-center justify-center text-xs font-mono w-12"
                 title="Reset Zoom"
               >
                 {Math.round(zoomLevel * 100)}%
               </button>
-              <button 
+              <button
                 onClick={(e) => { e.stopPropagation(); setZoomLevel(z => Math.max(0.5, z - 0.25)); }}
                 className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors"
                 title="Zoom Out"
               >
                 <ZoomOut size={20} />
               </button>
-              <button 
+              <button
                 onClick={(e) => { e.stopPropagation(); setZoomLevel(z => Math.min(4, z + 0.25)); }}
                 className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors"
                 title="Zoom In"
               >
                 <ZoomIn size={20} />
               </button>
-              <button 
+              <button
                 onClick={(e) => { e.stopPropagation(); setIsLightboxOpen(false); }}
                 className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors ml-2 md:ml-4"
                 title="Close"
@@ -304,14 +304,14 @@ export default function App() {
                 <X size={20} />
               </button>
             </div>
-            
-            <div 
+
+            <div
               className="min-h-full min-w-full flex items-center justify-center p-4 md:p-8 overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <motion.img 
-                src={image} 
-                alt="Enlarged preview" 
+              <motion.img
+                src={image}
+                alt="Enlarged preview"
                 animate={{ scale: zoomLevel }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 className="max-w-[90vw] max-h-[90vh] object-contain origin-center cursor-grab active:cursor-grabbing"
@@ -336,65 +336,78 @@ export default function App() {
               className="fixed inset-0 z-40"
               onClick={() => setShowSettings(false)}
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               className="absolute top-16 right-6 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl z-50 p-4"
             >
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Preferences</h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold dark:text-slate-200">Theme</p>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">UI Appearance</p>
+              <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Preferences</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold dark:text-slate-200">Theme</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">UI Appearance</p>
+                  </div>
+                  <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                    <button onClick={() => setTheme('light')} className={`px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${theme === 'light' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>Light</button>
+                    <button onClick={() => setTheme('system')} className={`px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${theme === 'system' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>Auto</button>
+                    <button onClick={() => setTheme('dark')} className={`px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${theme === 'dark' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>Dark</button>
+                  </div>
                 </div>
-                <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <button onClick={() => setTheme('light')} className={`px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${theme === 'light' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>Light</button>
-                  <button onClick={() => setTheme('system')} className={`px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${theme === 'system' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>Auto</button>
-                  <button onClick={() => setTheme('dark')} className={`px-2 py-1 text-[9px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${theme === 'dark' ? 'bg-white dark:bg-slate-600 shadow-sm text-indigo-600 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>Dark</button>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold dark:text-slate-200">Auto-Extract</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">Trigger OCR on paste</p>
+                  </div>
+                  <button
+                    onClick={() => setAutoExtract(!autoExtract)}
+                    className={`w-8 h-4 rounded-full cursor-pointer relative transition-colors ${autoExtract ? 'bg-indigo-600 dark:bg-indigo-500' : 'bg-slate-300 dark:bg-slate-700'}`}
+                  >
+                    <motion.div
+                      animate={{ left: autoExtract ? '1.125rem' : '0.125rem' }}
+                      className="absolute top-0.5 w-3 h-3 bg-white rounded-full shadow-sm"
+                    />
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold dark:text-slate-200">Allow Editing</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">Edit extracted text</p>
+                  </div>
+                  <button
+                    onClick={() => setAllowEdit(!allowEdit)}
+                    className={`w-8 h-4 rounded-full cursor-pointer relative transition-colors ${allowEdit ? 'bg-indigo-600 dark:bg-indigo-500' : 'bg-slate-300 dark:bg-slate-700'}`}
+                  >
+                    <motion.div
+                      animate={{ left: allowEdit ? '1.125rem' : '0.125rem' }}
+                      className="absolute top-0.5 w-3 h-3 bg-white rounded-full shadow-sm"
+                    />
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold dark:text-slate-200">View Source</p>
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">View source code on github</p>
+                  </div>
+                  <button
+                    onClick={() => window.open('https://github.com/forhadkhan/quick-ocr', '_blank')}
+                    className="p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg transition-colors flex items-center justify-center cursor-pointer"
+                    title="Github Repository"
+                  >
+                    <Github size={16} />
+                  </button>
+                </div>
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <button
+                    onClick={() => { clearHistory(); setShowSettings(false); }}
+                    className="w-full py-2 flex items-center gap-2 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 cursor-pointer rounded-lg px-2 transition-colors"
+                  >
+                    <Trash2 size={14} /> Clear Scan History
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold dark:text-slate-200">Auto-Extract</p>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Trigger OCR on paste</p>
-                </div>
-                <button 
-                  onClick={() => setAutoExtract(!autoExtract)}
-                  className={`w-8 h-4 rounded-full cursor-pointer relative transition-colors ${autoExtract ? 'bg-indigo-600 dark:bg-indigo-500' : 'bg-slate-300 dark:bg-slate-700'}`}
-                >
-                  <motion.div 
-                    animate={{ left: autoExtract ? '1.125rem' : '0.125rem' }}
-                    className="absolute top-0.5 w-3 h-3 bg-white rounded-full shadow-sm" 
-                  />
-                </button>
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-semibold dark:text-slate-200">Allow Editing</p>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">Edit extracted text</p>
-                </div>
-                <button 
-                  onClick={() => setAllowEdit(!allowEdit)}
-                  className={`w-8 h-4 rounded-full cursor-pointer relative transition-colors ${allowEdit ? 'bg-indigo-600 dark:bg-indigo-500' : 'bg-slate-300 dark:bg-slate-700'}`}
-                >
-                  <motion.div 
-                    animate={{ left: allowEdit ? '1.125rem' : '0.125rem' }}
-                    className="absolute top-0.5 w-3 h-3 bg-white rounded-full shadow-sm" 
-                  />
-                </button>
-              </div>
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
-                <button 
-                  onClick={() => { clearHistory(); setShowSettings(false); }}
-                  className="w-full py-2 flex items-center gap-2 text-xs font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 cursor-pointer rounded-lg px-2 transition-colors"
-                >
-                  <Trash2 size={14} /> Clear Scan History
-                </button>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
           </>
         )}
       </AnimatePresence>
@@ -426,7 +439,7 @@ export default function App() {
                   </div>
                 ) : (
                   history.map((item) => (
-                    <div 
+                    <div
                       key={item.id}
                       className="group p-3 bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 rounded-lg hover:border-indigo-200 dark:hover:border-indigo-500/50 transition-all cursor-pointer relative"
                       onClick={() => loadFromHistory(item)}
@@ -440,7 +453,7 @@ export default function App() {
                           <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 font-mono">{item.text}</p>
                         </div>
                       </div>
-                      <button 
+                      <button
                         onClick={(e) => { e.stopPropagation(); deleteHistoryItem(item.id); }}
                         className="absolute top-2 right-2 p-1 text-slate-300 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                       >
@@ -470,11 +483,11 @@ export default function App() {
 
             {image ? (
               <div className="absolute inset-0 p-4 sm:p-8 flex items-center justify-center bg-slate-50/50 dark:bg-slate-900/50">
-                <img 
-                  src={image} 
-                  alt="Preview" 
+                <img
+                  src={image}
+                  alt="Preview"
                   onClick={() => { setZoomLevel(1); setIsLightboxOpen(true); }}
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-sm cursor-zoom-in hover:opacity-95 transition-opacity" 
+                  className="max-w-full max-h-full object-contain rounded-lg shadow-sm cursor-zoom-in hover:opacity-95 transition-opacity"
                 />
                 <button
                   onClick={reset}
@@ -483,18 +496,18 @@ export default function App() {
                   <X size={18} />
                 </button>
                 {isLoading && (
-                   <div className="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-[2px] flex items-center justify-center z-30">
-                      <div className="w-48 text-center">
-                         <div className="h-1 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-2">
-                            <motion.div 
-                               initial={{ width: 0 }}
-                               animate={{ width: `${progress}%` }}
-                               className="h-full bg-indigo-600 dark:bg-indigo-500"
-                            />
-                         </div>
-                         <p className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">{progress}% Neural Processing</p>
+                  <div className="absolute inset-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-[2px] flex items-center justify-center z-30">
+                    <div className="w-48 text-center">
+                      <div className="h-1 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-2">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${progress}%` }}
+                          className="h-full bg-indigo-600 dark:bg-indigo-500"
+                        />
                       </div>
-                   </div>
+                      <p className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">{progress}% Neural Processing</p>
+                    </div>
+                  </div>
                 )}
               </div>
             ) : (
@@ -513,7 +526,7 @@ export default function App() {
                     Ctrl V
                   </kbd>
                 </p>
-                <button 
+                <button
                   onClick={() => fileInputRef.current?.click()}
                   className="mt-6 px-8 h-11 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white rounded-lg font-bold text-sm shadow-sm active:scale-[0.98] transition-all uppercase tracking-wider"
                 >
@@ -539,7 +552,7 @@ export default function App() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-700/50 flex flex-col justify-center">
               <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold mb-1 flex items-center gap-1">
-                 <Check size={10} /> Confidence
+                <Check size={10} /> Confidence
               </p>
               <p className="text-xl font-light text-indigo-600 dark:text-indigo-400 font-mono tracking-tight">{stats.confidence}</p>
             </div>
@@ -574,7 +587,7 @@ export default function App() {
               </button>
             </div>
           </div>
-          
+
           <div className="flex-1 p-6 relative overflow-hidden bg-slate-50/20 dark:bg-black/20 flex flex-col">
             <AnimatePresence mode="wait">
               {isLoading ? (
@@ -590,11 +603,11 @@ export default function App() {
                   className="font-mono text-[13px] leading-relaxed text-slate-700 dark:text-slate-300 h-full flex flex-col"
                 >
                   <p className="mb-4 text-indigo-400 select-none text-[9px] uppercase font-bold tracking-widest flex items-center gap-2 shrink-0">
-                     <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full" />
-                     LOCAL_NEURAL_ENGINE ACTIVE
+                    <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full" />
+                    LOCAL_NEURAL_ENGINE ACTIVE
                   </p>
                   {allowEdit ? (
-                    <textarea 
+                    <textarea
                       value={extractedText}
                       onChange={(e) => setExtractedText(e.target.value)}
                       className="w-full flex-1 bg-transparent border-none outline-none resize-none overflow-auto"
@@ -611,7 +624,7 @@ export default function App() {
                 </div>
               )}
             </AnimatePresence>
-            
+
             {error && (
               <div className="absolute bottom-4 left-4 right-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-600 dark:text-red-400 text-[10px] font-bold uppercase">
                 CRITICAL_ERR: {error}
