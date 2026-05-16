@@ -1,0 +1,6 @@
+{
+  "name": "quickOCR",
+  "description": "Extract text from any image locally. Supports pasting from clipboard and file uploads.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
