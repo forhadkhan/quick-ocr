@@ -1,28 +1,81 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>quickOCR - Fast & Private In-Browser Text Extraction</title>
-    <meta name="description" content="quickOCR is a high-performance, client-side Optical Character Recognition (OCR) web tool. Extract text from images locally in your browser for maximum speed and privacy." />
-    <meta name="keywords" content="OCR, optical character recognition, offline OCR, image to text, local OCR, privacy, text extraction" />
-    <meta name="author" content="quickOCR" />
-    <meta name="robots" content="index, follow" />
-    <link rel="icon" href="https://f0rhad.github.io/assets/favicon.ico" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="quickOCR - Fast & Private OCR" />
-    <meta property="og:description" content="Extract text from images instantly and entirely locally within your browser. Free, fast, and secure OCR." />
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="quickOCR - Fast & Private OCR" />
-    <meta property="twitter:description" content="Extract text from images instantly and entirely locally within your browser. Free, fast, and secure OCR." />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary Meta Tags -->
+  <title>quickOCR — Fast & Private In-Browser Text Extraction</title>
+  <meta name="description"
+    content="quickOCR is an efficient and free client-side Optical Character Recognition (OCR) web tool. Extract text from images locally in your browser for maximum speed and privacy." />
+  <meta name="keywords"
+    content="OCR, optical character recognition, offline OCR, image to text, local OCR, privacy, text extraction, tesseract.js, webassembly, secure OCR, free OCR, local neural engine, react ocr, browser ocr" />
+  <meta name="author" content="Forhad Khan" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Mobile & PWA Optimization -->
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="quickOCR" />
+  <meta name="application-name" content="quickOCR" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- Author and Canonical Links -->
+  <link rel="author" href="https://forhadkhan.com" />
+  <link rel="canonical" href="https://forhadkhan.github.io/quick-ocr/" />
+  <link rel="icon" href="https://f0rhad.github.io/assets/favicon.ico" />
+  <link rel="apple-touch-icon" href="https://f0rhad.github.io/assets/favicon.ico" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://forhadkhan.github.io/quick-ocr/" />
+  <meta property="og:title" content="quickOCR — Fast & Private In-Browser Text Extraction" />
+  <meta property="og:description"
+    content="Extract text from images instantly and entirely locally within your browser. Free, fast, and secure local OCR." />
+  <meta property="og:image" content="https://f0rhad.github.io/assets/forhadkhan-og.png" />
+  <meta property="og:site_name" content="quickOCR" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://forhadkhan.github.io/quick-ocr/" />
+  <meta name="twitter:title" content="quickOCR — Fast & Private In-Browser Text Extraction" />
+  <meta name="twitter:description"
+    content="Extract text from images instantly and entirely locally within your browser. Free, fast, and secure local OCR." />
+  <meta name="twitter:image" content="https://f0rhad.github.io/assets/forhadkhan-og.png" />
+
+  <!-- JSON-LD Structured Data for Web Application -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "quickOCR",
+      "url": "https://forhadkhan.github.io/quick-ocr/",
+      "description": "Efficient, client-side Optical Character Recognition (OCR) web tool. Extract text from images locally in your browser for maximum speed and privacy.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript and WebAssembly support",
+      "author": {
+        "@type": "Person",
+        "name": "Forhad Khan",
+        "url": "https://forhadkhan.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
